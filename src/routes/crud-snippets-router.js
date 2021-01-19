@@ -15,5 +15,7 @@ const controller = new CrudSnippetsController()
 // Map HTTP verbs and route paths to controller actions.
 router.get('/', controller.index)
 
+router.get('/login', controller.login)
+
 //router.get('/new', controller.new)
 //router.post('/create', controller.create)

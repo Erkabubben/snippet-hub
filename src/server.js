@@ -13,13 +13,13 @@ import logger from 'morgan'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
-//import { connectDB } from './config/mongoose.js'
+import { connectDB } from './config/mongoose.js'
 
 /**
  * The main function of the application.
  */
 const main = async () => {
-  //await connectDB()
+  await connectDB()
 
   // Creates an Express application.
   const app = express()
@@ -117,10 +117,10 @@ const main = async () => {
   })
 
   // Starts the HTTP server listening for connections. 
-  const PORT = 8080;
-  app.listen(PORT, () => {  //process.env.PORT
+  //const PORT = 8080;
+  app.listen(process.env.PORT, () => {  //PORT
     
-    console.log(`Server running at http://localhost:${PORT}`) //process.env.PORT
+    console.log(`Server running at http://localhost:${process.env.PORT}`) //PORT
     console.log('Press Ctrl-C to terminate...')
   })
 }

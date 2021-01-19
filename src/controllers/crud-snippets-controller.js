@@ -31,7 +31,29 @@ export class CrudSnippetsController {
         //  }))
         //  .sort((a, b) => a.value - b.value)
       }
-      res.render('crud-snippets/index', { viewData })
+      if (false) {
+        //res.render('crud-snippets/index', { viewData })
+      } else {
+        res.redirect('/login')
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async login (req, res, next) {
+    try {
+      const viewData = {
+        //pureNumbers: (await PureNumber.find({}))
+        //  .map(pureNumber => ({
+        //    id: pureNumber._id,
+        //    createdAt: moment(pureNumber.createdAt).fromNow(),
+        //    value: pureNumber.value
+        //  pureNumbers: 1
+        //  }))
+        //  .sort((a, b) => a.value - b.value)
+      }
+      res.render('crud-snippets/login')
     } catch (error) {
       next(error)
     }
