@@ -59,6 +59,18 @@ export class CrudSnippetsController {
     }
   }
 
+  async loginPost (req, res, next) {
+    try {
+      const user = {}
+      req.session.regenerate(() => {
+
+      })
+      res.redirect('/login')
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async usersNew (req, res, next) {
     try {
       res.render('crud-snippets/usersNew')

@@ -16,6 +16,7 @@ const controller = new CrudSnippetsController()
 router.get('/', controller.index)
 
 router.get('/login', controller.login)
+router.post('/login', controller.loginPost)
 router.get('/users/new', controller.usersNew)
 router.post('/users/create', controller.userCreate)
 
