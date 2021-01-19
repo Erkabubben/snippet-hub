@@ -7,13 +7,14 @@
 
 import express from 'express'
 import hbs from 'express-hbs'
-//import session from 'express-session'
+import session from 'express-session'
 import helmet from 'helmet'
 import logger from 'morgan'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'
+import bcrypt from 'bcrypt'
 
 /**
  * The main function of the application.
@@ -56,7 +57,7 @@ const main = async () => {
 
   // Serve static files.
   app.use(express.static(join(directoryFullName, '..', 'public')))
-/*
+
   // Setup and use session middleware (https://github.com/expressjs/session).
   const sessionOptions = {
     name: process.env.SESSION_NAME, // Don't use default session cookie name.
@@ -87,7 +88,7 @@ const main = async () => {
 
     next()
   })
-*/
+
   // Register routes.
   app.use('/', router)
 
@@ -117,10 +118,9 @@ const main = async () => {
   })
 
   // Starts the HTTP server listening for connections. 
-  //const PORT = 8080;
-  app.listen(process.env.PORT, () => {  //PORT
+  app.listen(process.env.PORT, () => {
     
-    console.log(`Server running at http://localhost:${process.env.PORT}`) //PORT
+    console.log(`Server running at http://localhost:${process.env.PORT}`)
     console.log('Press Ctrl-C to terminate...')
   })
 }

@@ -79,7 +79,7 @@ export class CrudSnippetsController {
       await user.save()
 
       // ...and redirect and show a message.
-      req.session.flash = { type: 'success', text: 'The pure number was saved successfully.' }
+      req.session.flash = { type: 'success', text: 'A new user was created!' }
       res.redirect('/')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.

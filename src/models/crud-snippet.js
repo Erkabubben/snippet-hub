@@ -6,6 +6,7 @@
  */
 
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 
 // Create a schema.
 /* const schema = new mongoose.Schema({
@@ -21,24 +22,30 @@ import mongoose from 'mongoose'
 }) */
 
 // Create a schema.
-const schema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: '`{PATH}` is required!',
     trim: true,
+    unique: true,
     maxLength: [100, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
-    minLength: [3, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
+    minLength: [4, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   },
   password: {
     type: String,
     required: '`{PATH}` is required!',
     maxLength: [1000, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
-    minLength: [6, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
+    minLength: [8, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   }
 }, {
   timestamps: true,
   versionKey: false
 })
 
+// Salts and hashes password before save.
+userSchema.pre('save', async function () {
+  this.password = await bcrypt.hash(this.password, 8)
+})
+
 // Create a model using the schema.
-export const User = mongoose.model('User', schema)
+export const User = mongoose.model('User', userSchema)
