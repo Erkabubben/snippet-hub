@@ -59,9 +59,9 @@ export class CrudSnippetsController {
     }
   }
 
-  async register (req, res, next) {
+  async usersNew (req, res, next) {
     try {
-      res.render('crud-snippets/register')
+      res.render('crud-snippets/usersNew')
     } catch (error) {
       next(error)
     }
@@ -72,7 +72,7 @@ export class CrudSnippetsController {
       // Create a new user...
       const user = new User({
         username: req.body.username,
-        password: req.body.password,
+        password: req.body.password
       })
 
       // ...save the user to the database...
@@ -83,7 +83,7 @@ export class CrudSnippetsController {
       res.redirect('/')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
-      res.render('crud-snippets/register', {
+      res.render('crud-snippets/usersNew', {
         validationErrors: [error.message] || [error.errors.value.message],
         value: req.body.value
       })
