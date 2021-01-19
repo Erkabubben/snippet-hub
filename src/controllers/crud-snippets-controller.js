@@ -6,7 +6,7 @@
  */
 
 import moment from 'moment'
-import { CrudSnippet } from '../models/crud-snippet.js'
+import { User } from '../models/crud-snippet.js'
 
 /**
  * Encapsulates a controller.
@@ -56,6 +56,37 @@ export class CrudSnippetsController {
       res.render('crud-snippets/login')
     } catch (error) {
       next(error)
+    }
+  }
+
+  async register (req, res, next) {
+    try {
+      res.render('crud-snippets/register')
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async userCreate (req, res, next) {
+    try {
+      // Create a new user...
+      const user = new User({
+        username: req.body.username,
+        password: req.body.password,
+      })
+
+      // ...save the user to the database...
+      await user.save()
+
+      // ...and redirect and show a message.
+      req.session.flash = { type: 'success', text: 'The pure number was saved successfully.' }
+      res.redirect('/')
+    } catch (error) {
+      // If an error, or validation error, occurred, view the form and an error message.
+      res.render('crud-snippets/register', {
+        validationErrors: [error.message] || [error.errors.value.message],
+        value: req.body.value
+      })
     }
   }
 
