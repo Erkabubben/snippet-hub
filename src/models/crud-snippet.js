@@ -47,5 +47,18 @@ userSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, 8)
 })
 
+// Adds static method for authenticating user.
+userSchema.statics.authenticate = async function (username, password) {
+  const user = await this.findOne({ username })
+
+  // If no user is found or password is wrong, throw an error.
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw new Error('Invalid login attempt.')
+  }
+
+  // If user is found and password is correct - return the user.
+  return user
+}
+
 // Create a model using the schema.
 export const User = mongoose.model('User', userSchema)
