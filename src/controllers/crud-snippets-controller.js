@@ -12,6 +12,25 @@ import { User } from '../models/crud-snippet.js'
  * Encapsulates a controller.
  */
 export class CrudSnippetsController {
+
+  authorizeGeneral (req, res, next) {
+    if (!req.session.user) {
+      const error = new Error ('Forbidden')
+      error.statusCode = 404
+      return next(error)
+    }
+
+    next()
+  }
+
+  /*checkIfLoggedIn (req) {
+    if (!req.session.user) {
+      return false
+    } else {
+      return true
+    }
+  }*/
+
   /**
    * Displays a list of pure numbers.
    *
@@ -32,10 +51,12 @@ export class CrudSnippetsController {
         //  .sort((a, b) => a.value - b.value)
       }
       if (false) {
-        //res.render('crud-snippets/index', { viewData })
+        
       } else {
-        res.redirect('/login')
+        //res.redirect('/login')
       }
+      const session = req.session.user
+      res.render('crud-snippets/index', { viewData, session })
     } catch (error) {
       next(error)
     }
@@ -53,18 +74,23 @@ export class CrudSnippetsController {
         //  }))
         //  .sort((a, b) => a.value - b.value)
       }
-      res.render('crud-snippets/login')
+      const session = req.session.user
+      res.render('crud-snippets/login', { session })
     } catch (error) {
       next(error)
     }
   }
 
+  async logout (req, res, next) {
+    req.session.destroy()
+    res.redirect('/')
+  }
+
   async loginPost (req, res, next) {
     try {
-      const user = {}
-      req.session.regenerate(() => {
-
-      })
+      const user = await User.authenticate(req.body.username, req.body.password)
+      req.session.regenerate(() => {})
+      req.session.user = user
       res.redirect('/login')
     } catch (error) {
       next(error)
@@ -73,7 +99,8 @@ export class CrudSnippetsController {
 
   async usersNew (req, res, next) {
     try {
-      res.render('crud-snippets/usersNew')
+      const session = req.session.user
+      res.render('crud-snippets/usersNew', { session })
     } catch (error) {
       next(error)
     }
@@ -95,9 +122,11 @@ export class CrudSnippetsController {
       res.redirect('/')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
+      const session = req.session.user
       res.render('crud-snippets/usersNew', {
         validationErrors: [error.message] || [error.errors.value.message],
-        value: req.body.value
+        value: req.body.value,
+        session
       })
     }
   }
