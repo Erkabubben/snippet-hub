@@ -1,5 +1,5 @@
 /**
- * Mongoose model PureNumber.
+ * Mongoose model CRUD Snippet User.
  *
  * @author Mats Loock
  * @version 1.0.0
@@ -8,20 +8,28 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 
-// Create a schema.
-/* const schema = new mongoose.Schema({
-  value: {
-    type: Number,
+// Create a user schema.
+const snippetSchema = new mongoose.Schema({
+  name: {
+    type: String,
     required: '`{PATH}` is required!',
-    max: [42, '`{PATH}` ({VALUE}) exceeds the limit ({MAX}).'],
-    min: [1, '`{PATH}` ({VALUE}) is beneath the limit ({MIN}).']
+    trim: true,
+    unique: true,
+    maxLength: [100, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
+    minLength: [4, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
+  },
+  code: {
+    type: String,
+    required: '`{PATH}` is required!',
+    maxLength: [1000000, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
+    minLength: [1, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   }
 }, {
   timestamps: true,
   versionKey: false
-}) */
+})
 
-// Create a schema.
+// Create a user schema.
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -35,7 +43,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: '`{PATH}` is required!',
     maxLength: [1000, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
-    minLength: [8, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
+    minLength: [6, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
+  },
+  snippets: {
+    type: [snippetSchema]
   }
 }, {
   timestamps: true,
@@ -62,3 +73,4 @@ userSchema.statics.authenticate = async function (username, password) {
 
 // Create a model using the schema.
 export const User = mongoose.model('User', userSchema)
+export const Snippet = mongoose.model('Snippet', snippetSchema)

@@ -27,7 +27,7 @@ export class UsersController {
   async new (req, res, next) {
     try {
       const session = req.session.user
-      res.render('crud-snippets/usersNew', { session })
+      res.render('crud-snippets/user-new', { session })
     } catch (error) {
       next(error)
     }
@@ -62,6 +62,9 @@ export class UsersController {
     try {
       const user = req.session.user
       const profileID = req.params.id
+      if (profileID === user._id) {
+        
+      }
       res.render('crud-snippets/user-profile', { user, profileID })
     } catch (error) {
       next(error)

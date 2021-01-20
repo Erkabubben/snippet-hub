@@ -97,40 +97,6 @@ export class CrudSnippetsController {
     }
   }
 
-  async usersNew (req, res, next) {
-    try {
-      const user = req.session.user
-      res.render('crud-snippets/usersNew', { user })
-    } catch (error) {
-      next(error)
-    }
-  }
-
-  async userCreate (req, res, next) {
-    try {
-      // Create a new user...
-      const user = new User({
-        username: req.body.username,
-        password: req.body.password
-      })
-
-      // ...save the user to the database...
-      await user.save()
-
-      // ...and redirect and show a message.
-      req.session.flash = { type: 'success', text: 'A new user was created!' }
-      res.redirect('/')
-    } catch (error) {
-      // If an error, or validation error, occurred, view the form and an error message.
-      const user = req.session.user
-      res.render('crud-snippets/usersNew', {
-        validationErrors: [error.message] || [error.errors.value.message],
-        value: req.body.value,
-        user
-      })
-    }
-  }
-
   /**
    * Returns a HTML form for creating a new pure number.
    *
