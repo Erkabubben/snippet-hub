@@ -18,8 +18,6 @@ router.get('/', controller.authorizeGeneral, controller.index)
 router.get('/login', controller.login)
 router.post('/login', controller.loginPost)
 router.get('/logout', controller.logout)
-router.get('/users/new', controller.usersNew)
-router.post('/users/create', controller.userCreate)
 
 //router.get('/new', controller.new)
 //router.post('/create', controller.create)
