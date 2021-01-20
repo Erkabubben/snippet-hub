@@ -17,3 +17,4 @@ const controller = new UsersController()
 
 router.get('/new', controller.new)
 router.post('/create', controller.create)
+router.get('/:id', controller.show)

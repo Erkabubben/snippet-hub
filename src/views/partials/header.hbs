@@ -10,9 +10,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
-        {{#if session}}
+        {{#if user}}
         <li class="nav-item">
-          <a class="nav-link" href="/">Profile</a>
+          <a class="nav-link" href="/users/{{user._id}}">Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">Log Out</a>

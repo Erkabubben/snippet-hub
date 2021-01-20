@@ -55,8 +55,8 @@ export class CrudSnippetsController {
       } else {
         //res.redirect('/login')
       }
-      const session = req.session.user
-      res.render('crud-snippets/index', { viewData, session })
+      const user = req.session.user
+      res.render('crud-snippets/index', { viewData, user })
     } catch (error) {
       next(error)
     }
@@ -74,8 +74,8 @@ export class CrudSnippetsController {
         //  }))
         //  .sort((a, b) => a.value - b.value)
       }
-      const session = req.session.user
-      res.render('crud-snippets/login', { session })
+      const user = req.session.user
+      res.render('crud-snippets/login', { user })
     } catch (error) {
       next(error)
     }
@@ -91,7 +91,7 @@ export class CrudSnippetsController {
       const user = await User.authenticate(req.body.username, req.body.password)
       req.session.regenerate(() => {})
       req.session.user = user
-      res.redirect('/login')
+      res.redirect('/users/' + user._id)
     } catch (error) {
       next(error)
     }
@@ -99,8 +99,8 @@ export class CrudSnippetsController {
 
   async usersNew (req, res, next) {
     try {
-      const session = req.session.user
-      res.render('crud-snippets/usersNew', { session })
+      const user = req.session.user
+      res.render('crud-snippets/usersNew', { user })
     } catch (error) {
       next(error)
     }
@@ -122,11 +122,11 @@ export class CrudSnippetsController {
       res.redirect('/')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
-      const session = req.session.user
+      const user = req.session.user
       res.render('crud-snippets/usersNew', {
         validationErrors: [error.message] || [error.errors.value.message],
         value: req.body.value,
-        session
+        user
       })
     }
   }

@@ -50,11 +50,21 @@ export class UsersController {
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
       const session = req.session.user
-      res.render('crud-snippets/usersNew', {
+      res.render('crud-snippets/user-new', {
         validationErrors: [error.message] || [error.errors.value.message],
         value: req.body.value,
         session
       })
+    }
+  }
+
+  async show (req, res, next) {
+    try {
+      const user = req.session.user
+      const profileID = req.params.id
+      res.render('crud-snippets/user-profile', { user, profileID })
+    } catch (error) {
+      next(error)
     }
   }
 
