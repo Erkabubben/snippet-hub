@@ -61,11 +61,12 @@ export class UsersController {
   async show (req, res, next) {
     try {
       const user = req.session.user
-      const profileID = req.params.id
-      if (profileID === user._id) {
-        
+      const profileID = req.params.userid
+      if (user && profileID === user._id) {
+        res.render('crud-snippets/user-current-profile', { user, profileID })
+      } else {
+        res.render('crud-snippets/user-profile', { user, profileID })
       }
-      res.render('crud-snippets/user-profile', { user, profileID })
     } catch (error) {
       next(error)
     }

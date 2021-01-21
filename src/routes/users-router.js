@@ -8,6 +8,7 @@
 import express from 'express'
 import { CrudSnippetsController } from '../controllers/crud-snippets-controller.js'
 import { UsersController } from '../controllers/users-controller.js'
+import { router as snippetsRouter } from './snippets-router.js'
 
 export const router = express.Router()
 
@@ -17,4 +18,6 @@ const controller = new UsersController()
 
 router.get('/new', controller.new)
 router.post('/create', controller.create)
-router.get('/:id', controller.show)
+router.get('/:userid', controller.show)
+
+router.use('/:userid/snippets', snippetsRouter)

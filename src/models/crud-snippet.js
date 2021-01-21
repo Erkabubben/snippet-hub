@@ -14,7 +14,6 @@ const snippetSchema = new mongoose.Schema({
     type: String,
     required: '`{PATH}` is required!',
     trim: true,
-    unique: true,
     maxLength: [100, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
     minLength: [4, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   },
@@ -34,8 +33,8 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: '`{PATH}` is required!',
-    trim: true,
     unique: true,
+    trim: true,
     maxLength: [100, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
     minLength: [4, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   },
@@ -73,4 +72,4 @@ userSchema.statics.authenticate = async function (username, password) {
 
 // Create a model using the schema.
 export const User = mongoose.model('User', userSchema)
-export const Snippet = mongoose.model('Snippet', snippetSchema)
+//export const Snippet = mongoose.model('Snippet', snippetSchema)
