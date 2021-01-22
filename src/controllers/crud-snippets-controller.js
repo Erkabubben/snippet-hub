@@ -13,7 +13,7 @@ import { User } from '../models/crud-snippet.js'
  */
 export class CrudSnippetsController {
 
-  authorizeGeneral (req, res, next) {
+  /*authorizeGeneralUser (req, res, next) {
     if (!req.session.user) {
       const error = new Error ('Forbidden')
       error.statusCode = 404
@@ -21,7 +21,7 @@ export class CrudSnippetsController {
     }
 
     next()
-  }
+  }*/
 
   /*checkIfLoggedIn (req) {
     if (!req.session.user) {

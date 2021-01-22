@@ -112,9 +112,10 @@ const main = async () => {
     // Only providing detailed error in development.
 
     // Render the error page.
+    const user = req.session.user
     res
       .status(err.status || 500)
-      .render('errors/error', { error: err })
+      .render('errors/error', { error: err, user })
   })
 
   // Starts the HTTP server listening for connections. 
