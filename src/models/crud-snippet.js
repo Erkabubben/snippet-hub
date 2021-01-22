@@ -53,9 +53,15 @@ const userSchema = new mongoose.Schema({
 })
 
 // Salts and hashes password before save.
-userSchema.pre('save', async function () {
-  this.password = await bcrypt.hash(this.password, 8)
-})
+//userSchema.pre('save', async function () {
+//    this.password = await bcrypt.hash(this.password, 8)
+//})
+
+// Adds static method for salting and hashing password.
+userSchema.statics.hashPassword = async function (password) {
+  const hashedPassword = await bcrypt.hash(password, 8)
+  return hashedPassword
+}
 
 // Adds static method for authenticating user.
 userSchema.statics.authenticate = async function (username, password) {
@@ -69,6 +75,8 @@ userSchema.statics.authenticate = async function (username, password) {
   // If user is found and password is correct - return the user.
   return user
 }
+
+
 
 // Create a model using the schema.
 export const User = mongoose.model('User', userSchema)

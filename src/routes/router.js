@@ -9,6 +9,7 @@ import express from 'express'
 import createError from 'http-errors'
 import { router as crudSnippetsRouter } from './crud-snippets-router.js'
 import { router as usersRouter } from './users-router.js'
+//import { router as snippetsRouter } from './snippets-router.js'
 
 
 export const router = express.Router()

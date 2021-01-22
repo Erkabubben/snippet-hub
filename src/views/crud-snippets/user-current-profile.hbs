@@ -1,15 +1,16 @@
 <h1>
-  <span class="far fa-plus-square"></span> {{user.username}}'s profile {{profileID}}
+  <span class="far fa-plus-square"></span> {{user.username}}'s profile
 </h1>
 
-<p>WELCOME BLAAAAH!</p>
+<p>WELCOME TO YOUR PROFILE!</p>
 
-<form method="post" action="/users/new">
-  {{>validationSummary}}
-  <div class="form-group">
-    <input class="form-control" name="username" placeholder="Enter a username" required="required" autofocus="autofocus" />
-    <br>
-    <input class="form-control" name="password" placeholder="Enter a password" required="required" autofocus="autofocus" />
-  </div>
-  <button type="submit" class="btn btn-lg btn-primary">Register</button>
-</form>
+{{#if user.snippets.length}}
+{{#each user.snippets}}
+<h2>{{this.name}}</h2>
+<p>{{this.code}}</p>
+{{/each}}
+{{else}}
+<p>No code snippets yet.</p>
+{{/if}}
+
+<a type="button" class="btn btn-primary" href="./{{profileID}}/snippets/new" role="button">Create Code Snippet</a>

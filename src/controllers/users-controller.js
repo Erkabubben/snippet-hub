@@ -6,6 +6,7 @@
  */
 
 import moment from 'moment'
+import mongoose from 'mongoose'
 import { User } from '../models/crud-snippet.js'
 
 /**
@@ -26,8 +27,8 @@ export class UsersController {
 
   async new (req, res, next) {
     try {
-      const session = req.session.user
-      res.render('crud-snippets/user-new', { session })
+      const user = req.session.user
+      res.render('crud-snippets/user-new', { user })
     } catch (error) {
       next(error)
     }
@@ -36,9 +37,10 @@ export class UsersController {
   async create (req, res, next) {
     try {
       // Create a new user...
+      const hashedPassword = await User.hashPassword(req.body.password)
       const user = new User({
         username: req.body.username,
-        password: req.body.password
+        password: hashedPassword
       })
 
       // ...save the user to the database...
@@ -49,23 +51,43 @@ export class UsersController {
       res.redirect('/')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
-      const session = req.session.user
+      const user = req.session.user
       res.render('crud-snippets/user-new', {
         validationErrors: [error.message] || [error.errors.value.message],
         value: req.body.value,
-        session
+        user
       })
     }
   }
 
   async show (req, res, next) {
     try {
-      const user = req.session.user
-      const profileID = req.params.userid
-      if (user && profileID === user._id) {
-        res.render('crud-snippets/user-current-profile', { user, profileID })
+      
+      const viewedProfileID = req.params.userid
+      //const userID = req.session.user._id
+      //const user = await User.findById(userID)
+      if (req.session.user && (req.params.userid === req.session.user._id)) {
+        //const profileID = req.params.userid
+        //const user = req.session.user
+        const user = req.session.user
+        res.render('crud-snippets/user-current-profile', { user, viewedProfileID })
       } else {
-        res.render('crud-snippets/user-profile', { user, profileID })
+        const user = req.session.user
+        if (mongoose.Types.ObjectId.isValid(viewedProfileID)) {
+          const otherUser = await User.findById(viewedProfileID)
+          if (otherUser !== null) {
+            console.log(otherUser.username)
+            res.render('crud-snippets/user-other-profile', { user, otherUser, viewedProfileID })
+          } else {
+            const error = new Error ('404 Not Found')
+            error.statusCode = 404
+            throw error
+          }
+        } else {
+          const error = new Error ('404 Not Found')
+          error.statusCode = 404
+          throw error
+        }
       }
     } catch (error) {
       next(error)

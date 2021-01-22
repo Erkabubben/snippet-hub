@@ -1,0 +1,12 @@
+<h1>
+  <span class="far fa-plus-square"></span> {{otherUser.username}}'s profile
+</h1>
+
+{{#if otherUser.snippets.length}}
+{{#each otherUser.snippets}}
+<h2>{{this.name}}</h2>
+<p>{{this.code}}</p>
+{{/each}}
+{{else}}
+<p>No code snippets yet.</p>
+{{/if}}
