@@ -62,27 +62,38 @@ export class UsersController {
 
   async show (req, res, next) {
     try {
-      
       const viewedProfileID = req.params.userid
-      //const userID = req.session.user._id
-      //const user = await User.findById(userID)
+      /* Render current user's profile */
       if (req.session.user && (req.params.userid === req.session.user._id)) {
-        //const profileID = req.params.userid
-        //const user = req.session.user
         const user = req.session.user
         res.render('crud-snippets/user-current-profile', { user, viewedProfileID })
       } else {
         const user = req.session.user
         if (mongoose.Types.ObjectId.isValid(viewedProfileID)) {
-          const otherUser = await User.findById(viewedProfileID)
-          if (otherUser !== null) {
-            console.log(otherUser.username)
+          const userFromMongoDB = await User.findById(viewedProfileID)
+          /* Render profile of other user */
+          if (userFromMongoDB !== null) {
+            /* Create duplicate object based on user data */
+            const otherUserSnippets = []
+            userFromMongoDB.snippets.forEach(element => {
+              const e = {
+                name: element.name,
+                code: element.code
+              }
+              otherUserSnippets.push(e)
+            })
+            const otherUser = {
+              username: userFromMongoDB.username,
+              snippets: otherUserSnippets
+            }
             res.render('crud-snippets/user-other-profile', { user, otherUser, viewedProfileID })
+          /* Display 404 if userid in URL has no document in user database */
           } else {
             const error = new Error ('404 Not Found')
             error.statusCode = 404
             throw error
           }
+        /* Display 404 if userid in URL is not valid ObjectID */
         } else {
           const error = new Error ('404 Not Found')
           error.statusCode = 404
