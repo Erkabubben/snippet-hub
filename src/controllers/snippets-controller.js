@@ -96,4 +96,23 @@ export class SnippetsController {
       next(error)
     }
   }
+
+  async update (req, res, next) {
+    try {
+      // Create a new snippet...
+      const userID = req.session.user._id
+      const user = await User.findById(userID)
+      const snippet = user.snippets.id(req.params.snippetid)
+      snippet.name = req.body.name
+      snippet.code = req.body.code
+      // ...save the user to the database...
+      await user.save()
+      req.session.user = user
+      // ...and redirect and show a message.
+      req.session.flash = { type: 'success', text: 'The code snippet was updated.' }
+      res.redirect('/users/' + req.session.user._id)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
