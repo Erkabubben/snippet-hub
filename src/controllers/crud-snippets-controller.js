@@ -1,12 +1,11 @@
 /**
  * Module for the CrudSnippetsController.
- * 
+ *
  * @author Erik Lindholm <elimk06@student.lnu.se>
  * @author Mats Loock
  * @version 1.0.0
  */
 
-import moment from 'moment'
 import { User } from '../models/crud-snippet.js'
 
 /**
@@ -53,16 +52,6 @@ export class CrudSnippetsController {
    */
   async login (req, res, next) {
     try {
-      const viewData = {
-        //pureNumbers: (await PureNumber.find({}))
-        //  .map(pureNumber => ({
-        //    id: pureNumber._id,
-        //    createdAt: moment(pureNumber.createdAt).fromNow(),
-        //    value: pureNumber.value
-        //  pureNumbers: 1
-        //  }))
-        //  .sort((a, b) => a.value - b.value)
-      }
       const user = req.session.user
       res.render('crud-snippets/login', { user })
     } catch (error) {

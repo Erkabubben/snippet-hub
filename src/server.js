@@ -15,7 +15,6 @@ import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'
-import bcrypt from 'bcrypt'
 
 /**
  * The main function of the application.

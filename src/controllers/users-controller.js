@@ -6,7 +6,6 @@
  * @version 1.0.0
  */
 
-import moment from 'moment'
 import mongoose from 'mongoose'
 import { User } from '../models/crud-snippet.js'
 
@@ -98,13 +97,13 @@ export class UsersController {
             res.render('crud-snippets/user-other-profile', { user, otherUser, viewedProfileID }) // Render View without controls for editing
           /* Display 404 if userid in URL has no document in user database */
           } else {
-            const error = new Error ('404 Not Found')
+            const error = new Error('404 Not Found')
             error.statusCode = 404
             throw error
           }
         /* Display 404 if userid in URL is not valid ObjectID */
         } else {
-          const error = new Error ('404 Not Found')
+          const error = new Error('404 Not Found')
           error.statusCode = 404
           throw error
         }
