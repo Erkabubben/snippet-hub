@@ -2,6 +2,7 @@
  * The starting point of the application.
  *
  * @author Mats Loock
+ * @author Erik Lindholm <elimk06@student.lnu.se>
  * @version 1.0.0
  */
 
@@ -20,6 +21,7 @@ import bcrypt from 'bcrypt'
  * The main function of the application.
  */
 const main = async () => {
+  // Checks that database is functional (no use starting the application otherwise).
   await connectDB()
 
   // Creates an Express application.
@@ -43,7 +45,7 @@ const main = async () => {
   // Set up a morgan logger using the dev format for log entries.
   app.use(logger('dev'))
 
-  // View engine setup.
+  // View engine setup (Handlebars).
   app.engine('hbs', hbs.express4({
     defaultLayout: join(directoryFullName, 'views', 'layouts', 'default'),
     partialsDir: join(directoryFullName, 'views', 'partials')
@@ -112,15 +114,14 @@ const main = async () => {
     // Only providing detailed error in development.
 
     // Render the error page.
-    const user = req.session.user
+    const user = req.session.user // Adds a user object so that the header will still be displayed properly.
     res
       .status(err.status || 500)
       .render('errors/error', { error: err, user })
   })
 
-  // Starts the HTTP server listening for connections. 
+  // Starts the HTTP server listening for connections.
   app.listen(process.env.PORT, () => {
-    
     console.log(`Server running at http://localhost:${process.env.PORT}`)
     console.log('Press Ctrl-C to terminate...')
   })
