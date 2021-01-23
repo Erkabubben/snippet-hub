@@ -1,12 +1,12 @@
 /**
- * Users routes.
+ * Routes for the Users collection (RESTful).
  *
+ * @author Erik Lindholm <elimk06@student.lnu.se>
  * @author Mats Loock
  * @version 1.0.0
  */
 
 import express from 'express'
-import { CrudSnippetsController } from '../controllers/crud-snippets-controller.js'
 import { UsersController } from '../controllers/users-controller.js'
 import { router as snippetsRouter } from './snippets-router.js'
 
@@ -20,4 +20,4 @@ router.get('/new', controller.new)
 router.post('/create', controller.create)
 router.get('/:userid', controller.show)
 
-router.use('/:userid/snippets', snippetsRouter)
+router.use('/:userid/snippets', snippetsRouter) // Registers the Snippets collection router.

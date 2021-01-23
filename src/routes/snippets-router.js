@@ -1,6 +1,7 @@
 /**
- * Pure numbers routes.
+ * Routes to a user's Snippets collection (RESTful).
  *
+ * @author Erik Lindholm <elimk06@student.lnu.se>
  * @author Mats Loock
  * @version 1.0.0
  */
@@ -9,10 +10,11 @@ import express from 'express'
 import { SnippetsController } from '../controllers/snippets-controller.js'
 import { Authorize } from './authorize.js'
 
-export const router = express.Router({mergeParams: true})
+/* The mergeParams: true option adds the route's specific userid to req.params */
+export const router = express.Router({ mergeParams: true })
 
 const controller = new SnippetsController()
-const authorize = new Authorize()
+const authorize = new Authorize() // The Authorize class is used for access control.
 
 // Map HTTP verbs and route paths to controller actions.
 router.get('/new', authorize.specificUser, controller.new)

@@ -1,6 +1,7 @@
 /**
- * Pure numbers routes.
+ * Routes specific to the CRUD Snippets application.
  *
+ * @author Erik Lindholm <elimk06@student.lnu.se>
  * @author Mats Loock
  * @version 1.0.0
  */
@@ -12,11 +13,12 @@ import { Authorize } from './authorize.js'
 export const router = express.Router()
 
 const controller = new CrudSnippetsController()
-const authorize = new Authorize()
+const authorize = new Authorize() // The Authorize class is used for access control.
 
 // Map HTTP verbs and route paths to controller actions.
 router.get('/', authorize.generalUser, controller.index)
 
+/* Login/Logout routes */
 router.get('/login', controller.login)
 router.post('/login', controller.loginPost)
 router.get('/logout', authorize.generalUser, controller.logout)
