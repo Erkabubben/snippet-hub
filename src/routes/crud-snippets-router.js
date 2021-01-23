@@ -19,4 +19,4 @@ router.get('/', authorize.generalUser, controller.index)
 
 router.get('/login', controller.login)
 router.post('/login', controller.loginPost)
-router.get('/logout', controller.logout)
+router.get('/logout', authorize.generalUser, controller.logout)
