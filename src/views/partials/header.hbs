@@ -6,10 +6,21 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="leftlist">
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
+        {{#if user}}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Log Out</a>
+        </li>
+        {{else}}
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">Register</a>
+        </li>
+        {{/if}}
+      </ul>
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="rightlist"></ul>
         {{#if user}}
         <li class="nav-item">
           <a class="nav-link" href="/users/{{user._id}}">Profile</a>
@@ -20,9 +31,6 @@
         {{else}}
         <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/users/new">Register</a>
         </li>
         {{/if}}
       </ul>

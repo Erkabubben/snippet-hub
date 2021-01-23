@@ -1,30 +1,6 @@
 <h1>
     <span class="far fa-list-alt"></span>WELCOME TO SNIPPETHUB!
 </h1>
-<input></input>
-<br><br>
-<input></input>
-<button>Log In</button>
-<table class="table table-hover">
-  <caption>List of code snippets</caption>
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">Created</th>
-      <th scope="col">Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#if viewData.pureNumbers.length}}
-    {{#each viewData.pureNumbers}}
-    <tr>
-      <th scope="row">{{this.createdAt}}</th>
-      <td>{{this.value}}</td>
-    </tr>
-    {{/each}}
-    {{else}}
-    <tr colspan="2">
-      <td class="text-center">No pure numbers to display.</td>
-    </tr>
-  {{/if}}
-  </tbody>
+<p>SnippetHub aims to be the number #1 web service for storing and sharing code snippets.</p>
+<h2>Today's featured code snippet</h2>
 </table>

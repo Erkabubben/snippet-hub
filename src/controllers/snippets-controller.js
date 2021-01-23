@@ -92,7 +92,7 @@ export class SnippetsController {
       await user.save()
       req.session.user = user
       // ...and redirect and show a message.
-      req.session.flash = { type: 'success', text: 'A new snippet was created!' }
+      req.session.flash = { type: 'success', text: 'The snippet was deleted.' }
       res.redirect('/users/' + req.session.user._id)
     } catch (error) {
       next(error)
