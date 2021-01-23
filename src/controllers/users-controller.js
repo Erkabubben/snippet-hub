@@ -1,6 +1,7 @@
 /**
- * Module for the UsersController.
+ * Module for the UsersController (RESTful methods for the Users collection).
  *
+ * @author Erik Lindholm <elimk06@student.lnu.se>
  * @author Mats Loock
  * @version 1.0.0
  */
@@ -13,28 +14,13 @@ import { User } from '../models/crud-snippet.js'
  * Encapsulates a controller.
  */
 export class UsersController {
-
-  /*authorizeGeneralUser (req, res, next) {
-    if (!req.session.user) {
-      const error = new Error ('Forbidden')
-      error.statusCode = 404
-      return next(error)
-    }
-
-    next()
-  }
-
-  authorizeSpecificUser (req, res, next) {
-    if (!req.session.user || req.session.user._id !== req.params.userid) {
-      const error = new Error ('Forbidden')
-      error.statusCode = 404
-      return next(error)
-    }
-
-    next()
-  }*/
-
-
+  /**
+   * Displays a form for registering a new user.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
   async new (req, res, next) {
     try {
       const user = req.session.user
@@ -44,20 +30,25 @@ export class UsersController {
     }
   }
 
-  async create (req, res, next) {
+  /**
+   * Creates a new User based on the form content and adds to the Users collection
+   * in the database.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   */
+  async create (req, res) {
     try {
-      // Create a new user...
+      // Hashes the entered password and creates a new User based on the form data.
       const hashedPassword = await User.hashPassword(req.body.password)
       const user = new User({
         username: req.body.username,
         password: hashedPassword
       })
-
-      // ...save the user to the database...
+      // Saves the user to the database.
       await user.save()
-
-      // ...and redirect and show a message.
-      req.session.flash = { type: 'success', text: 'A new user was created!' }
+      // Redirects and shows a flash message.
+      req.session.flash = { type: 'success', text: 'A new user has been registered.' }
       res.redirect('/')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
@@ -70,20 +61,28 @@ export class UsersController {
     }
   }
 
+  /**
+   * Displays a user's personal profile page.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
   async show (req, res, next) {
     try {
       const viewedProfileID = req.params.userid
-      /* Render current user's profile */
+      // Render current user's profile if the userid of the displayed page corresponds with id of session user.
       if (req.session.user && (req.params.userid === req.session.user._id)) {
         const user = req.session.user
-        res.render('crud-snippets/user-current-profile', { user, viewedProfileID })
+        res.render('crud-snippets/user-current-profile', { user, viewedProfileID }) // Render View with controls for editing available
       } else {
         const user = req.session.user
+        // Otherwise check if the id of viewed profile is a valid ObjectId.
         if (mongoose.Types.ObjectId.isValid(viewedProfileID)) {
           const userFromMongoDB = await User.findById(viewedProfileID)
-          /* Render profile of other user */
+          // If a user with corresponding id is found in the database, render that user's profile.
           if (userFromMongoDB !== null) {
-            /* Create duplicate object based on user data */
+            // Create object based on User model.
             const otherUserSnippets = []
             userFromMongoDB.snippets.forEach(element => {
               const e = {
@@ -96,7 +95,7 @@ export class UsersController {
               username: userFromMongoDB.username,
               snippets: otherUserSnippets
             }
-            res.render('crud-snippets/user-other-profile', { user, otherUser, viewedProfileID })
+            res.render('crud-snippets/user-other-profile', { user, otherUser, viewedProfileID }) // Render View without controls for editing
           /* Display 404 if userid in URL has no document in user database */
           } else {
             const error = new Error ('404 Not Found')
@@ -114,5 +113,4 @@ export class UsersController {
       next(error)
     }
   }
-
 }

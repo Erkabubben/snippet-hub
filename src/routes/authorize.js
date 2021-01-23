@@ -17,9 +17,9 @@ export class Authorize {
    * Checks whether the user has been authenticated (meaning he/she is logged on to the site).
    * Only checks that the user is logged on, not the specific identity of the user.
    *
-   * @param {object} req - An HTTP request object.
-   * @param {object} res - An HTTP response object.
-   * @param {Function} next - Function for proceeding to the next route.
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
    * @returns {Error} - An Error object that will prevent the controller callback method from being called.
    */
   generalUser (req, res, next) {
@@ -37,9 +37,9 @@ export class Authorize {
    * storage corresponds to the userid parameter in the parameters of the request object.
    * Used to determine access to user-specific content.
    *
-   * @param {object} req - An HTTP request object.
-   * @param {object} res - An HTTP response object.
-   * @param {Function} next - Function for proceeding to the next route.
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
    * @returns {Error} - An Error object that will prevent the controller callback method from being called.
    */
   specificUser (req, res, next) {

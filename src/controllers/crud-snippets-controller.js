@@ -1,6 +1,7 @@
 /**
  * Module for the CrudSnippetsController.
- *
+ * 
+ * @author Erik Lindholm <elimk06@student.lnu.se>
  * @author Mats Loock
  * @version 1.0.0
  */
@@ -12,27 +13,8 @@ import { User } from '../models/crud-snippet.js'
  * Encapsulates a controller.
  */
 export class CrudSnippetsController {
-
-  /*authorizeGeneralUser (req, res, next) {
-    if (!req.session.user) {
-      const error = new Error ('Forbidden')
-      error.statusCode = 404
-      return next(error)
-    }
-
-    next()
-  }*/
-
-  /*checkIfLoggedIn (req) {
-    if (!req.session.user) {
-      return false
-    } else {
-      return true
-    }
-  }*/
-
   /**
-   * Displays a list of pure numbers.
+   * Displays the index page.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -62,6 +44,13 @@ export class CrudSnippetsController {
     }
   }
 
+  /**
+   * Displays the login page.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
   async login (req, res, next) {
     try {
       const viewData = {
@@ -81,11 +70,26 @@ export class CrudSnippetsController {
     }
   }
 
-  async logout (req, res, next) {
+  /**
+   * Logs out the user by destroying the session.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   */
+  async logout (req, res) {
     req.session.destroy()
-    res.redirect('/')
+    res.redirect('/login')
   }
 
+  /**
+   * Called when a user attempts to log in. Checks the validity of the entered
+   * username and password. If the credentials are valid, the user is authenticated
+   * with a session cookie and redirected.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
   async loginPost (req, res, next) {
     try {
       const user = await User.authenticate(req.body.username, req.body.password)
@@ -96,45 +100,4 @@ export class CrudSnippetsController {
       next(error)
     }
   }
-
-  /**
-   * Returns a HTML form for creating a new pure number.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-//  async new (req, res) {
-//    const viewData = {
-//      value: undefined
-//    }
-//    res.render('pure-numbers/new', { viewData })
-//  }
-
-  /**
-   * Creates a new pure number.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   */
-//  async create (req, res) {
-//    try {
-      // Create a new pure number...
-//      const pureNumber = new PureNumber({
-//        value: req.body.value
-//      })
-
-      // ...save the number to the database...
-//      await pureNumber.save()
-
-      // ...and redirect and show a message.
-//      req.session.flash = { type: 'success', text: 'The pure number was saved successfully.' }
-//      res.redirect('.')
-//    } catch (error) {
-      // If an error, or validation error, occurred, view the form and an error message.
-//      res.render('pure-numbers/new', {
-//        validationErrors: [error.message] || [error.errors.value.message],
-//        value: req.body.value
-//      })
-//    }
-//  }
 }
