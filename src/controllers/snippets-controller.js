@@ -12,31 +12,6 @@ import { User } from '../models/crud-snippet.js'
  */
 export class SnippetsController {
 
-  /*authorizeGeneralUser (req, res, next) {
-    if (!req.session.user) {
-      const error = new Error ('Forbidden')
-      error.statusCode = 404
-      return next(error)
-    }
-
-    next()
-  }
-
-  authorizeSpecificUser (req, res, next) {
-    let userID = ''
-    if (req.session.user) {
-      userID = req.session.user._id
-      console.log(userID)
-    }
-    if (!req.session.user || userID !== req.params.userid) {
-      const error = new Error ('Forbidden')
-      error.statusCode = 404
-      return next(error)
-    }
-
-    next()
-  }*/
-
   async new (req, res, next) {
     try {
       const user = req.session.user

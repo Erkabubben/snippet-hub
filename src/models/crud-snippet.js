@@ -1,14 +1,15 @@
 /**
- * Mongoose model CRUD Snippet User.
+ * Mongoose model CRUD Snippet application User (with schema for Snippet subdocument).
  *
+ * @author Erik Lindholm <elimk06@student.lnu.se>
  * @author Mats Loock
  * @version 1.0.0
  */
 
-import mongoose from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 import bcrypt from 'bcrypt'
 
-// Create a user schema.
+// Create a schema for the Snippet subdocuments.
 const snippetSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -28,7 +29,7 @@ const snippetSchema = new mongoose.Schema({
   versionKey: false
 })
 
-// Create a user schema.
+// Create a User schema.
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -44,7 +45,7 @@ const userSchema = new mongoose.Schema({
     maxLength: [1000, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
     minLength: [6, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   },
-  snippets: {
+  snippets: { // The User's collection of Snippets.
     type: [snippetSchema]
   }
 }, {
@@ -52,18 +53,25 @@ const userSchema = new mongoose.Schema({
   versionKey: false
 })
 
-// Salts and hashes password before save.
-//userSchema.pre('save', async function () {
-//    this.password = await bcrypt.hash(this.password, 8)
-//})
-
-// Adds static method for salting and hashing password.
+/**
+ * Adds static method for salting and hashing the password. ALWAYS call
+ * when registering a new user or changing a user's password!
+ *
+ * @param {string} password - The unhashed password.
+ * @returns {string} - The bcrypt-hashed and salted password.
+ */
 userSchema.statics.hashPassword = async function (password) {
   const hashedPassword = await bcrypt.hash(password, 8)
   return hashedPassword
 }
 
-// Adds static method for authenticating user.
+/**
+ * Static method for authenticating user.
+ *
+ * @param {string} username - The entered username.
+ * @param {string} password - The entered password.
+ * @returns {Model} - The authenticated user's Mongoose model.
+ */
 userSchema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
 
@@ -76,8 +84,5 @@ userSchema.statics.authenticate = async function (username, password) {
   return user
 }
 
-
-
 // Create a model using the schema.
 export const User = mongoose.model('User', userSchema)
-//export const Snippet = mongoose.model('Snippet', snippetSchema)
