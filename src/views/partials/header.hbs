@@ -1,39 +1,35 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">SnippetHub</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="leftlist">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        {{#if user}}
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Log Out</a>
-        </li>
-        {{else}}
-        <li class="nav-item">
-          <a class="nav-link" href="/users/new">Register</a>
-        </li>
-        {{/if}}
-      </ul>
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="rightlist"></ul>
-        {{#if user}}
-        <li class="nav-item">
-          <a class="nav-link" href="/users/{{user._id}}">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Log Out</a>
-        </li>
-        {{else}}
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-        {{/if}}
-      </ul>
-    </div>
-  </nav>
+    </button>-->
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="leftlist">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      {{#if user}}
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Log Out</a>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="nav-link" href="/users/new">Register</a>
+      </li>
+      {{/if}}
+    </ul>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="rightlist">
+      {{#if user}}
+      <li class="nav-item">
+        <a class="nav-link" href="/users/{{user._id}}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Log Out</a>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      {{/if}}
+    </ul>
 </header>

@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import mongoose, { Model } from 'mongoose'
+import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 
 // Create a schema for the Snippet subdocuments.
