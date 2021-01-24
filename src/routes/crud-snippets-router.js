@@ -16,7 +16,7 @@ const controller = new CrudSnippetsController()
 const authorize = new Authorize() // The Authorize class is used for access control.
 
 // Map HTTP verbs and route paths to controller actions.
-router.get('/', authorize.generalUser, controller.index)
+router.get('/', controller.index)
 
 /* Login/Logout routes */
 router.get('/login', controller.login)

@@ -1,5 +1,5 @@
 <header>
-    <a class="navbar-brand" href="#">SnippetHub</a>
+    <a class="navbar-brand" href="/">SnippetHub</a>
     <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,9 +9,6 @@
         <a class="nav-link" href="/">Home</a>
       </li>
       {{#if user}}
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Log Out</a>
-      </li>
       {{else}}
       <li class="nav-item">
         <a class="nav-link" href="/users/new">Register</a>
@@ -20,6 +17,9 @@
     </ul>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="rightlist">
       {{#if user}}
+      <li class="nav-item">
+        <h3 id="header-username"><a href="/users/{{user._id}}"><b>{{user.username}}</b></a></h3>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/users/{{user._id}}">Profile</a>
       </li>

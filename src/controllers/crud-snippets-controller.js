@@ -7,6 +7,7 @@
  */
 
 import { User } from '../models/crud-snippet.js'
+import mongoose from 'mongoose'
 
 /**
  * Encapsulates a controller.
@@ -21,23 +22,29 @@ export class CrudSnippetsController {
    */
   async index (req, res, next) {
     try {
-      const viewData = {
-        //pureNumbers: (await PureNumber.find({}))
-        //  .map(pureNumber => ({
-        //    id: pureNumber._id,
-        //    createdAt: moment(pureNumber.createdAt).fromNow(),
-        //    value: pureNumber.value
-        //  pureNumbers: 1
-        //  }))
-        //  .sort((a, b) => a.value - b.value)
+      // Retrieve a random user from the database
+      
+      let featuredSnippet = {}
+      for (let i = 0; i < 20; i++) {
+        const randomUserArray = await User.aggregate([{ $sample: { size: 1 } }])
+        const randomUserSnippets = randomUserArray[0].snippets
+        if (randomUserSnippets.length > 0) {
+          // Local random range function
+          function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+          }
+
+          const selectedSnippet = randomUserSnippets[getRndInteger(0, randomUserSnippets.length)]
+          featuredSnippet.name = selectedSnippet.name
+          featuredSnippet.code = selectedSnippet.code
+          featuredSnippet.username = randomUserArray[0].username
+          featuredSnippet.userid = randomUserArray[0]._id
+          break
+        }
       }
-      if (false) {
-        
-      } else {
-        //res.redirect('/login')
-      }
+      //console.log(randomUser)
       const user = req.session.user
-      res.render('crud-snippets/index', { viewData, user })
+      res.render('crud-snippets/index', { user, featuredSnippet })
     } catch (error) {
       next(error)
     }

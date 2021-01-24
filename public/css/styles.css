@@ -28,6 +28,7 @@ header {
   height: max-content;
   background-color:	#24343cf3;
   display: grid;
+  user-select: none;
   grid-template-columns: max-content auto max-content;
   grid-template-rows: min-content;
   grid-template-areas:
@@ -61,12 +62,14 @@ header ul#leftlist {
   grid-area: leftlist;
   display: flex;
   flex-direction: row;
+  margin-left: 1rem;
 }
 
 header ul#rightlist {
   grid-area: rightlist;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  margin-right: 1rem;
 }
 
 header ul li {
@@ -88,9 +91,19 @@ header ul li a:hover {
   background-color:	#115887;
 }
 
+#header-username {
+  font-style: bold;
+  font-size: 1.75rem;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  margin: auto;
+  margin-right: 1.75rem;
+}
+
 main {
   grid-area: main;
-  max-width: 1280px;
+  max-width: 800px;
   border: rgba(0, 0, 0, 0.479) solid 4px;
   border-radius: 16px;
   margin: 12px;
@@ -100,8 +113,12 @@ main {
   
 }
 
-h2, h3 {
+h1, h2, h3 {
   padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.25;
 }
 
 footer {
@@ -127,4 +144,51 @@ footer p {
 
 .alert-warning {
   background-color: #f0ad4e;
+}
+
+.codesnippet {
+  width: auto;
+  border: solid black 2px;
+  background-color: white;
+  border-radius: 6px;
+  padding: 0;
+  margin: 0;
+}
+
+.codesnippet p {
+  width: auto;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  margin: 0.5rem;
+  padding: 0;
+}
+
+.codesnippet-header {
+  display: block;
+  background-color:	#115887f1;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem;
+}
+
+.codesnippet-body {
+  display: block;
+  background-color: #d4d4d4;
+  border: solid black 1px;
+  margin: 0.5rem;
+}
+
+.codesnippet-footer {
+  display: block;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.codesnippet-footer p {
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.codesnippet-footer p a {
+  font-size: 1rem;
 }

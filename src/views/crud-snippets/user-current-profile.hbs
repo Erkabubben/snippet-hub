@@ -6,8 +6,10 @@
 
 {{#if user.snippets.length}}
 {{#each user.snippets}}
-<h3>{{this.name}}</h3>
-<p>{{this.code}}</p>
+<div class="codesnippet">
+  <h3>{{this.name}}</h3>
+  <p>{{this.code}}</p>
+</div>
 <a type="button" class="btn btn-primary" href="./{{../viewedProfileID}}/snippets/{{this._id}}/edit" role="button">Edit</a>
 <a type="button" class="btn btn-primary" href="./{{../viewedProfileID}}/snippets/{{this._id}}/remove" role="button">Delete</a>
 {{/each}}
