@@ -93,12 +93,11 @@ header ul li a:hover {
 
 #header-username {
   font-style: bold;
-  font-size: 1.75rem;
+  font-size: 1.2rem;
   text-align: center;
   vertical-align: middle;
   color: white;
   margin: auto;
-  margin-right: 1.75rem;
 }
 
 main {
@@ -110,15 +109,18 @@ main {
   margin-left: 256px;
   padding: 12px;
   background-color: rgba(224, 224, 224, 0.952); 
-  
 }
 
 h1, h2, h3 {
   padding-top: 0px;
   padding-bottom: 0px;
   margin-top: 0;
-  margin-bottom: 0;
-  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.center-header {
+  text-align: center;
 }
 
 footer {
@@ -129,13 +131,15 @@ footer {
 footer p {
   text-align: center;
   color:	#ffffffde;
+  vertical-align: middle;
 }
 
 .alert {
   width: auto;
-  padding: 1rem;
-  border-radius: 12px;
-  font-size: 1.5rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
 }
 
 .alert-success {
@@ -146,13 +150,13 @@ footer p {
   background-color: #f0ad4e;
 }
 
-.codesnippet {
+div.codesnippet {
   width: auto;
   border: solid black 2px;
   background-color: white;
   border-radius: 6px;
   padding: 0;
-  margin: 0;
+  margin: 0.5rem 0;
 }
 
 .codesnippet p {
@@ -170,18 +174,26 @@ footer p {
   padding: 0.5rem;
 }
 
+.codesnippet-header h3 {
+  margin-bottom: 0;
+}
+
 .codesnippet-body {
   display: block;
   background-color: #d4d4d4;
   border: solid black 1px;
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
 .codesnippet-footer {
-  display: block;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
+  display: grid;
+  width: auto;
+  position: relative;
+  margin-top: 0;
+  grid-template-columns: auto max-content;
+  grid-template-rows: max-content;
+  grid-template-areas:
+    ".  buttonlist"
 }
 
 .codesnippet-footer p {
@@ -189,6 +201,82 @@ footer p {
   text-align: right;
 }
 
-.codesnippet-footer p a {
+.codesnippet-footer a {
   font-size: 1rem;
+  text-decoration: none;
+}
+
+.codesnippet-footer ul {
+  grid-area: buttonlist;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  height: max-content;
+  padding: 0px;
+  position: relative;
+  margin-top: 8px;
+}
+
+.codesnippet-footer ul li {
+  margin: 0px;
+  padding: 0px;
+}
+
+a.button-link, button.button-link {
+  color: white;
+  text-align: center;
+  background-color:	#24343c;
+  text-decoration: none;
+  margin: 0 0.5rem 0 0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  user-select: none;
+}
+
+a.button-link:hover, button.button-link:hover {
+  background-color:	#115887;
+}
+
+form#login {
+  margin: 1rem auto;
+}
+
+form#login div {
+  position: relative;
+}
+
+form#login input {
+  position: relative;
+  left: 50%;
+  transform: translate(-50% ,0 );
+  margin: 0.25rem auto;
+  padding: 0.25rem;
+  height: 1.5rem;
+  width: 256px;
+}
+
+#login button {
+  text-align: center;
+  position: relative;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-top: 0.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: none;
+}
+
+#profile-footer a#create-new-snippet-button {
+  margin: 0.5rem 0.5rem;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+div#profile-footer {
+  margin-top: 0.25rem;
+  height: max-content;
+  position: relative;
+  width: 100%;
+  display: block;
 }

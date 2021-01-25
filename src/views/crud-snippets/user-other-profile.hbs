@@ -1,11 +1,12 @@
-<h1>
-  <span class="far fa-plus-square"></span> {{otherUser.username}}'s profile!!!!!!
-</h1>
+<h1 class="center-header">{{otherUser.username}}'s Code Snippets</h1>
 
 {{#if otherUser.snippets.length}}
 {{#each otherUser.snippets}}
-<h3>{{this.name}}</h3>
-<p>{{this.code}}</p>
+  <div class="codesnippet">
+      <div class="codesnippet-header"><h3>{{name}}</h3></div>
+      <div class="codesnippet-body"><p>{{code}}</p></div>
+      <div class="codesnippet-footer"></div>
+  </div>
 {{/each}}
 {{else}}
 <p>No code snippets yet.</p>

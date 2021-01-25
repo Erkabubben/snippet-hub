@@ -1,13 +1,11 @@
-<h1>
-  <span class="far fa-plus-square"></span> Register new user
-</h1>
+<h1 class="center-header">REGISTER NEW USER</h1>
 
-<form method="post" action="/users/create">
+<form method="post" action="/users/create" id="login" >
   {{>validationSummary}}
   <div class="form-group">
     <input class="form-control" name="username" placeholder="Enter a username" required="required" autofocus="autofocus" />
     <br>
     <input class="form-control" name="password" placeholder="Enter a password" required="required" autofocus="autofocus" />
   </div>
-  <button type="submit" class="btn btn-lg btn-primary">Register</button>
+  <button type="submit" class="button-link">Register</button>
 </form>

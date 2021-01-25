@@ -1,21 +1,25 @@
-<h1>
-  <span class="far fa-plus-square"></span> {{user.username}}'s profile
-</h1>
-
-<p>WELCOME TO YOUR PROFILE!</p>
+<h1 class="center-header">{{user.username}}'s Code Snippets</h1>
 
 {{#if user.snippets.length}}
 {{#each user.snippets}}
-<div class="codesnippet">
-  <h3>{{this.name}}</h3>
-  <p>{{this.code}}</p>
-</div>
-<a type="button" class="btn btn-primary" href="./{{../viewedProfileID}}/snippets/{{this._id}}/edit" role="button">Edit</a>
-<a type="button" class="btn btn-primary" href="./{{../viewedProfileID}}/snippets/{{this._id}}/remove" role="button">Delete</a>
+  <div class="codesnippet">
+      <div class="codesnippet-header"><h3>{{name}}</h3></div>
+      <div class="codesnippet-body"><p>{{code}}</p></div>
+      <div class="codesnippet-footer">
+        <ul>
+          <li>
+            <a type="button" class="button-link" href="./{{../viewedProfileID}}/snippets/{{this._id}}/edit" role="button">Edit</a>
+          </li>
+          <li>
+            <a type="button" class="button-link" href="./{{../viewedProfileID}}/snippets/{{this._id}}/remove" role="button">Delete</a>
+          </li>
+        </ul>
+      </div>
+  </div>
 {{/each}}
 {{else}}
 <p>No code snippets yet.</p>
 {{/if}}
-
-<br>
-<a type="button" class="btn btn-primary" href="./{{viewedProfileID}}/snippets/new" role="button">Create New Code Snippet</a>
+<div id="profile-footer">
+  <a type="button" class="button-link" id="create-new-snippet-button" href="./{{viewedProfileID}}/snippets/new">Create New Code Snippet</a>
+</div>
