@@ -17,8 +17,8 @@ const controller = new SnippetsController()
 const authorize = new Authorize() // The Authorize class is used for access control.
 
 // Map HTTP verbs and route paths to controller actions.
-router.get('/new', /*authorize.specificUser,*/ controller.new)
-router.post('/create', /*authorize.specificUser,*/ controller.create)
+router.get('/new', authorize.specificUser, controller.new)
+router.post('/create', authorize.specificUser, controller.create)
 router.get('/:snippetid/remove', authorize.specificUser, controller.remove)
 router.post('/:snippetid/delete', authorize.specificUser, controller.delete)
 router.get('/:snippetid/edit', authorize.specificUser, controller.edit)

@@ -48,7 +48,7 @@ export class UsersController {
       await user.save()
       // Redirects and shows a flash message.
       req.session.flash = { type: 'success', text: 'A new user has been registered.' }
-      res.redirect('/')
+      res.redirect('/login')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
       const user = req.session.user

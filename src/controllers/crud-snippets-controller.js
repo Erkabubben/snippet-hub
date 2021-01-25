@@ -7,7 +7,6 @@
  */
 
 import { User } from '../models/crud-snippet.js'
-import mongoose from 'mongoose'
 
 /**
  * Encapsulates a controller.
@@ -22,28 +21,36 @@ export class CrudSnippetsController {
    */
   async index (req, res, next) {
     try {
-      // Retrieve a random user from the database
-      let featuredSnippet = {}
-      for (let i = 0; i < 20; i++) {
-        const randomUserArray = await User.aggregate([{ $sample: { size: 1 } }])
-        if (randomUserArray.length > 0) { // Check that a random user has been returned
-          const randomUserSnippets = randomUserArray[0].snippets
-          if (randomUserSnippets.length > 0) {
-            // Local random range function
-            function getRndInteger(min, max) {
-              return Math.floor(Math.random() * (max - min) ) + min;
-            }
-            const selectedSnippet = randomUserSnippets[getRndInteger(0, randomUserSnippets.length)]
-            featuredSnippet.name = selectedSnippet.name
-            featuredSnippet.code = selectedSnippet.code
-            featuredSnippet.username = randomUserArray[0].username
-            featuredSnippet.userid = randomUserArray[0]._id
-            break
+      /* Generate Featured Snippets */
+      // Retrieve a number of random users from the database (the 'size' value determines amount of users picked).
+      const randomUserArray = await User.aggregate([{ $sample: { size: 5 } }])
+      const featuredSnippets = []
+      randomUserArray.forEach(randomUser => {
+        const featuredSnippet = {}
+        const randomUserSnippets = randomUser.snippets
+        if (randomUserSnippets.length > 0) {
+          /**
+           * Local random range function.
+           *
+           * @param {number} min - Minimum value to be returned (inclusive).
+           * @param {number} max - Maximum value to be returned (exclusive).
+           * @returns {number} - A random number between the min and max values.
+           */
+          function getRndInteger (min, max) {
+            return Math.floor(Math.random() * (max - min)) + min
           }
+          // Copy snippet data from snippets array in User model
+          const selectedSnippet = randomUserSnippets[getRndInteger(0, randomUserSnippets.length)]
+          featuredSnippet.name = selectedSnippet.name
+          featuredSnippet.code = selectedSnippet.code
+          featuredSnippet.username = randomUser.username
+          featuredSnippet.userid = randomUser._id
+          // Push snippet object to featuredSnippets array
+          featuredSnippets.push(featuredSnippet)
         }
-      }
+      })
       const user = req.session.user
-      res.render('crud-snippets/index', { user, featuredSnippet })
+      res.render('crud-snippets/index', { user, featuredSnippets })
     } catch (error) {
       next(error)
     }
@@ -73,7 +80,7 @@ export class CrudSnippetsController {
    */
   async logout (req, res) {
     req.session.destroy()
-    res.redirect('/login')
+    res.redirect('/')
   }
 
   /**

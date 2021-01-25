@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: '`{PATH}` is required!',
+    required: '`{PATH}` is required!'
   },
   snippets: { // The User's collection of Snippets.
     type: [snippetSchema]
@@ -60,7 +60,8 @@ const userSchema = new mongoose.Schema({
  */
 userSchema.statics.hashPassword = async function (password) {
   const hashedPassword = await bcrypt.hash(password, 8)
-  if (password.length > 200 ) {
+  // Throw error if entered password is not within max and min length
+  if (password.length > 200) {
     throw Error('The password exceeds the limit of 200 characters.')
   } else if (password.length < 6) {
     throw Error('The password is beneath the limit of 6 characters.')
@@ -73,7 +74,7 @@ userSchema.statics.hashPassword = async function (password) {
  *
  * @param {string} username - The entered username.
  * @param {string} password - The entered password.
- * @returns {Model} - The authenticated user's Mongoose model.
+ * @returns {object} - The authenticated user's Mongoose model.
  */
 userSchema.statics.authenticate = async function (username, password) {
   const user = await this.findOne({ username })
