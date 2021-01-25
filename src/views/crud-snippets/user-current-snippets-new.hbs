@@ -1,15 +1,14 @@
-<h1>
-  <span class="far fa-plus-square"></span> {{user.username}}'s profile
-</h1>
+<h1 class="center-header">{{user.username}}</h1>
 
-<p>NEW SNIPPET</p>
+<h2 class="center-header">NEW CODE SNIPPET</h2>
 
 <form method="post" action="./create">
   {{>validationSummary}}
-  <div class="form-group">
-    <input class="form-control" name="name" placeholder="Snippet name" required="required" autofocus="autofocus" />
-    <br>
-    <textarea class="form-control" name="code" placeholder="Code" required="required" autofocus="autofocus"></textarea>
+  <div class="codesnippet">
+      <div class="codesnippet-header"><input class="form-control" name="name" placeholder="Snippet name" required="required" autofocus="autofocus" /></div>
+      <div class="codesnippet-body"><textarea class="form-control" name="code" placeholder="Code" required="required" autofocus="autofocus"></textarea></div>
+      <div class="codesnippet-footer"></div>
   </div>
-  <button type="submit" class="btn btn-lg btn-primary">Create New Code Snippet</button>
+  <button type="submit" class="button-link center-button">Create</button>
 </form>
+

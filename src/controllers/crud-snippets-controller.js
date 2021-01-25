@@ -23,7 +23,6 @@ export class CrudSnippetsController {
   async index (req, res, next) {
     try {
       // Retrieve a random user from the database
-      
       let featuredSnippet = {}
       for (let i = 0; i < 20; i++) {
         const randomUserArray = await User.aggregate([{ $sample: { size: 1 } }])
@@ -42,7 +41,6 @@ export class CrudSnippetsController {
           break
         }
       }
-      //console.log(randomUser)
       const user = req.session.user
       res.render('crud-snippets/index', { user, featuredSnippet })
     } catch (error) {
