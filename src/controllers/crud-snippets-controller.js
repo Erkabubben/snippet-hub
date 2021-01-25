@@ -91,7 +91,12 @@ export class CrudSnippetsController {
       req.session.user = user
       res.redirect('/users/' + user._id)
     } catch (error) {
-      next(error)
+      const user = req.session.user
+      res.render('crud-snippets/login', {
+        validationErrors: [error.message] || [error.errors.value.message],
+        value: req.body.value,
+        user
+      })
     }
   }
 }

@@ -22,7 +22,7 @@ const snippetSchema = new mongoose.Schema({
     type: String,
     required: '`{PATH}` is required!',
     maxLength: [1000000, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
-    minLength: [1, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
+    minLength: [3, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   }
 }, {
   timestamps: true,
@@ -42,8 +42,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: '`{PATH}` is required!',
-    maxlength: [1000, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
-    minlength: [6, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   },
   snippets: { // The User's collection of Snippets.
     type: [snippetSchema]
@@ -62,6 +60,11 @@ const userSchema = new mongoose.Schema({
  */
 userSchema.statics.hashPassword = async function (password) {
   const hashedPassword = await bcrypt.hash(password, 8)
+  if (password.length > 200 ) {
+    throw Error('The password exceeds the limit of 200 characters.')
+  } else if (password.length < 6) {
+    throw Error('The password is beneath the limit of 6 characters.')
+  }
   return hashedPassword
 }
 

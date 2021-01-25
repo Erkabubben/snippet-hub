@@ -3,7 +3,7 @@
 </h1>
 <p>SnippetHub is your number #1 web service for storing and sharing code snippets.</p>
 <h2 class="center-header">Currently featured code snippet:</h2>
-{{#if featuredSnippet}}
+{{#if featuredSnippet.name}}
     <div class="codesnippet">
         <div class="codesnippet-header"><h3>{{featuredSnippet.name}}</h3></div>
         <div class="codesnippet-body"><pre><code>{{featuredSnippet.code}}</code></pre></div>
