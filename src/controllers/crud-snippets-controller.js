@@ -26,19 +26,20 @@ export class CrudSnippetsController {
       let featuredSnippet = {}
       for (let i = 0; i < 20; i++) {
         const randomUserArray = await User.aggregate([{ $sample: { size: 1 } }])
-        const randomUserSnippets = randomUserArray[0].snippets
-        if (randomUserSnippets.length > 0) {
-          // Local random range function
-          function getRndInteger(min, max) {
-            return Math.floor(Math.random() * (max - min) ) + min;
+        if (randomUserArray.length > 0) { // Check that a random user has been returned
+          const randomUserSnippets = randomUserArray[0].snippets
+          if (randomUserSnippets.length > 0) {
+            // Local random range function
+            function getRndInteger(min, max) {
+              return Math.floor(Math.random() * (max - min) ) + min;
+            }
+            const selectedSnippet = randomUserSnippets[getRndInteger(0, randomUserSnippets.length)]
+            featuredSnippet.name = selectedSnippet.name
+            featuredSnippet.code = selectedSnippet.code
+            featuredSnippet.username = randomUserArray[0].username
+            featuredSnippet.userid = randomUserArray[0]._id
+            break
           }
-
-          const selectedSnippet = randomUserSnippets[getRndInteger(0, randomUserSnippets.length)]
-          featuredSnippet.name = selectedSnippet.name
-          featuredSnippet.code = selectedSnippet.code
-          featuredSnippet.username = randomUserArray[0].username
-          featuredSnippet.userid = randomUserArray[0]._id
-          break
         }
       }
       const user = req.session.user
