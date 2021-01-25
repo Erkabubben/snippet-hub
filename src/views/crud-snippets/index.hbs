@@ -1,12 +1,12 @@
 <h1 class="center-header">
     WELCOME TO SNIPPETHUB!
 </h1>
-<p>SnippetHub aims to be the number #1 web service for storing and sharing code snippets.</p>
+<p>SnippetHub is your number #1 web service for storing and sharing code snippets.</p>
 <h2 class="center-header">Currently featured code snippet:</h2>
 {{#if featuredSnippet}}
     <div class="codesnippet">
         <div class="codesnippet-header"><h3>{{featuredSnippet.name}}</h3></div>
-        <div class="codesnippet-body"><p>{{featuredSnippet.code}}</p></div>
+        <div class="codesnippet-body"><pre><code>{{featuredSnippet.code}}</code></pre></div>
         <div class="codesnippet-footer"><p>by <a href="/users/{{featuredSnippet.userid}}">{{featuredSnippet.username}}</a></p></div>
     </div>
 {{else}}

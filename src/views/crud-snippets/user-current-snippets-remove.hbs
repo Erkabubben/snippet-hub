@@ -1,13 +1,14 @@
-<h1>
-  <span class="far fa-plus-square"></span> {{user.username}}'s profile {{viewedProfileID}}
-</h1>
+<h1 class="center-header">{{user.username}}</h1>
 
-<p>DELETE SNIPPET</p>
+<h2 class="center-header">DELETE CODE SNIPPET?</h2>
 
-<form method="post" action="./delete">
-  <button type="submit" class="btn btn-lg btn-primary">Yes</button>
-</form>
+  <div class="codesnippet">
+      <div class="codesnippet-header"><h3>{{snippet.name}}</h3></div>
+      <div class="codesnippet-body"><pre><code>{{snippet.code}}</code></pre></div>
+      <div class="codesnippet-footer"></div>
+  </div>
 
-<form method="get" action="./">
-  <button type="submit" class="btn btn-lg btn-primary">No</button>
+<form method="post" action="./delete" class="center-header">
+  <button type="submit" class="button-link">Yes</button>
+  <a type="button" href="/users/{{user._id}}" class="button-link">No</a>
 </form>

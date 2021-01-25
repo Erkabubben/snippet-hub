@@ -72,7 +72,13 @@ export class SnippetsController {
   async remove (req, res, next) {
     try {
       const user = req.session.user
-      res.render('crud-snippets/user-current-snippets-remove', { user })
+      const userDB = await User.findById(user._id)
+      const snippetDB = userDB.snippets.id(req.params.snippetid)
+      const snippet = {
+        name: snippetDB.name,
+        code: snippetDB.code
+      }
+      res.render('crud-snippets/user-current-snippets-remove', { user, snippet })
     } catch (error) {
       next(error)
     }

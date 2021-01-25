@@ -109,7 +109,7 @@ main {
   border: rgba(0, 0, 0, 0.479) solid 4px;
   border-radius: 16px;
   margin: 12px;
-  margin-left: 256px;
+  margin-left: 160px;
   padding: 12px;
   background-color: rgba(224, 224, 224, 0.952); 
 }
@@ -127,14 +127,20 @@ h1, h2, h3 {
 }
 
 footer {
+  box-sizing: border-box;
   grid-area: footer;
   background-color:	#115887f1;
+  position: relative;
 }
 
 footer p {
+  position: absolute;
   text-align: center;
   color:	#ffffffde;
-  vertical-align: middle;
+  margin: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .alert {
@@ -153,6 +159,16 @@ footer p {
   background-color: #f0ad4e;
 }
 
+.alert-danger {
+  background-color: #d84545;
+}
+
+.alert-danger ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 div.codesnippet {
   width: auto;
   border: solid black 2px;
@@ -162,7 +178,7 @@ div.codesnippet {
   margin: 0.5rem 0;
 }
 
-.codesnippet p {
+.codesnippet p, pre {
   width: auto;
   overflow-x: auto;
   font-size: 0.8rem;

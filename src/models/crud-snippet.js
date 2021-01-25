@@ -36,14 +36,14 @@ const userSchema = new mongoose.Schema({
     required: '`{PATH}` is required!',
     unique: true,
     trim: true,
-    maxLength: [100, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
-    minLength: [4, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
+    maxlength: [100, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
+    minlength: [4, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   },
   password: {
     type: String,
     required: '`{PATH}` is required!',
-    maxLength: [1000, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
-    minLength: [6, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
+    maxlength: [1000, '`{PATH}` ({VALUE}) exceeds the limit of ({MAXLENGTH}) characters.'],
+    minlength: [6, '`{PATH}` ({VALUE}) is beneath the limit ({MINLENGTH}) characters.']
   },
   snippets: { // The User's collection of Snippets.
     type: [snippetSchema]
