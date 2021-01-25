@@ -158,4 +158,39 @@ export class SnippetsController {
       next(error)
     }
   }
+
+  /**
+   * Displays a specified code snippet.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async show (req, res, next) {
+    try {
+      const user = req.session.user
+      const viewedProfileID = req.params.userid
+      // Retrieve the User model of the current page from the database.
+      const viewedProfileUserDB = await User.findById(viewedProfileID)
+      const snippetDB = viewedProfileUserDB.snippets.id(req.params.snippetid)
+      // Create snippet object based on MongoDB data
+      const snippet = {
+        name: snippetDB.name,
+        code: snippetDB.code,
+        _id: snippetDB._id
+      }
+      // Create viewedProfileUser object based on MongoDB data
+      const viewedProfileUser = {
+        username: viewedProfileUserDB.username,
+        _id: viewedProfileUserDB._id
+      }
+      if (user && req.params.userid === user._id) { // If the displayed snippet belongs to the logged in user, display with edit/delete buttons
+        res.render('crud-snippets/user-current-snippets-show', { user, viewedProfileUser, snippet })
+      } else { // Otherwise, the snippet can only be viewed and not edited.
+        res.render('crud-snippets/user-snippets-show', { user, viewedProfileUser, snippet })
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
 }

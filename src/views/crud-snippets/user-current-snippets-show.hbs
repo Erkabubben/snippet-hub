@@ -1,0 +1,18 @@
+<h1 class="center-header">{{viewedProfileUser.username}}</h1>
+
+<div class="codesnippet">
+    <div class="codesnippet-header"><h3>{{snippet.name}}</h3></div>
+    <div class="codesnippet-body"><pre><code>{{snippet.code}}</code></pre></div>
+    <div class="codesnippet-footer">
+      <ul id="show-snippet-user-buttons">
+        <li>
+          <a type="button" class="button-link" href="./{{snippet._id}}/edit" role="button">Edit</a>
+        </li>
+        <li>
+          <a type="button" class="button-link" href="./{{snippet._id}}/remove" role="button">Delete</a>
+        </li>
+      </ul>
+    </div>
+</div>
+
+

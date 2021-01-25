@@ -335,3 +335,13 @@ form button.center-button {
   left: 50%;
   transform: translate(-50%, 0);
 }
+
+#show-snippet-user-buttons {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    height: max-content;
+    padding: 0px;
+    position: relative;
+    margin-top: 8px;
+}
