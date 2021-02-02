@@ -1,27 +1,27 @@
 <header>
-    <a class="navbar-brand" href="/">SnippetHub</a>
+    <a class="navbar-brand" href="./">SnippetHub</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="leftlist">
       <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="./">Home</a>
       </li>
       {{#if user}}
       {{else}}
       <li class="nav-item">
-        <a class="nav-link" href="/users/new">Register</a>
+        <a class="nav-link" href="./users/new">Register</a>
       </li>
       {{/if}}
     </ul>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="rightlist">
       {{#if user}}
       <li class="nav-item">
-        <h3 id="header-username"><a href="/users/{{user._id}}"><b>{{user.username}}</b></a></h3>
+        <h3 id="header-username"><a href="./users/{{user._id}}"><b>{{user.username}}</b></a></h3>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/logout">Log Out</a>
+        <a class="nav-link" href="./logout">Log Out</a>
       </li>
       {{else}}
       <li class="nav-item">
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="./login">Login</a>
       </li>
       {{/if}}
     </ul>

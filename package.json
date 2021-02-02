@@ -1,7 +1,7 @@
 {
   "name": "assignment-b1-crud-snippets",
   "version": "1.0.0",
-  "description": "1DV026 - Examination Assignment Module B - CRUD SNippets",
+  "description": "1DV026 - Examination Assignment Module B - CRUD Snippets",
   "type": "module",
   "main": "src/server.js",
   "scripts": {

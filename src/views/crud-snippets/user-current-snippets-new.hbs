@@ -2,7 +2,7 @@
 
 <h2 class="center-header">NEW CODE SNIPPET</h2>
 
-<form method="post" action="./create">
+<form method="post" action="./users/{{user._id}}/snippets/create">
   {{>validationSummary}}
   <div class="codesnippet">
       <div class="codesnippet-header"><input class="form-control" name="name" placeholder="Snippet name" required="required" autofocus="autofocus" /></div>

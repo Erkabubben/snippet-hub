@@ -75,6 +75,7 @@ export class SnippetsController {
       const userDB = await User.findById(user._id)
       const snippetDB = userDB.snippets.id(req.params.snippetid)
       const snippet = {
+        id: snippetDB._id,
         name: snippetDB.name,
         code: snippetDB.code
       }
@@ -121,11 +122,12 @@ export class SnippetsController {
       const dbUser = await User.findById(req.session.user._id)
       const snippet = dbUser.snippets.id(req.params.snippetid)
       // Handlebars variables setup.
+      const snippetID = req.params.snippetid
       const snippetName = snippet.name
       const snippetCode = snippet.code
       const user = req.session.user
       // Render form.
-      res.render('crud-snippets/user-current-snippets-edit', { user, snippetName, snippetCode })
+      res.render('crud-snippets/user-current-snippets-edit', { user, snippetName, snippetCode, snippetID })
     } catch (error) {
       next(error)
     }

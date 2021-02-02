@@ -29,6 +29,9 @@ const main = async () => {
   // Get the directory name of this module's path.
   const directoryFullName = dirname(fileURLToPath(import.meta.url))
 
+  // Set up base tag
+  const baseURL = process.env.BASE_URL || '/'
+
   // Set various HTTP headers to make the application little more secure (https://www.npmjs.com/package/helmet).
   // (The web application uses external scripts and therefore needs to explicitly trust on code.jquery.com and cdn.jsdelivr.net.)
   app.use(helmet())
@@ -86,6 +89,9 @@ const main = async () => {
       res.locals.flash = req.session.flash
       delete req.session.flash
     }
+
+    // Pass the base URL to the views.
+    res.locals.baseURL = baseURL
 
     next()
   })
