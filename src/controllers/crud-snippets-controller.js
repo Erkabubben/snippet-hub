@@ -80,7 +80,7 @@ export class CrudSnippetsController {
    */
   async logout (req, res) {
     req.session.destroy()
-    res.redirect('/')
+    res.redirect('./')
   }
 
   /**
@@ -97,7 +97,7 @@ export class CrudSnippetsController {
       const user = await User.authenticate(req.body.username, req.body.password)
       req.session.regenerate(() => {})
       req.session.user = user
-      res.redirect('/users/' + user._id)
+      res.redirect('./users/' + user._id)
     } catch (error) {
       const user = req.session.user
       res.render('crud-snippets/login', {

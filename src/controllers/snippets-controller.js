@@ -51,7 +51,7 @@ export class SnippetsController {
 
       // Redirect and show a flash message.
       req.session.flash = { type: 'success', text: 'A new code snippet was created.' }
-      res.redirect('/users/' + req.session.user._id)
+      res.redirect('../')
     } catch (error) {
       // If an error, or validation error, occurred, view the form and an error message.
       const user = req.session.user
@@ -103,7 +103,7 @@ export class SnippetsController {
       req.session.user = user
       // Redirect and show a flash message.
       req.session.flash = { type: 'success', text: 'The snippet was deleted.' }
-      res.redirect('/users/' + req.session.user._id)
+      res.redirect('../../')
     } catch (error) {
       next(error)
     }
@@ -155,7 +155,7 @@ export class SnippetsController {
       req.session.user = user
       // Redirect and show a flash message.
       req.session.flash = { type: 'success', text: 'The code snippet was updated.' }
-      res.redirect('/users/' + req.session.user._id)
+      res.redirect('../../')
     } catch (error) {
       next(error)
     }
