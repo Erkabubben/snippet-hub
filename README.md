@@ -1,3 +1,4 @@
+![screenshot-snippet-hub](https://user-images.githubusercontent.com/57233721/143483668-6629bfe0-981d-4b93-aa73-03f5696db3de.jpg)
 # Assignment B1 - CRUD Snippets
 
 In this assignment, you will create a web application to manage code [snippets](https://en.wikipedia.org/wiki/Snippet_(programming)). The web application will use the Node.js platform, Express as the application framework, and Mongoose as the object data modeling (ODM) library for MongoDB.
